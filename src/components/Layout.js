@@ -1,6 +1,8 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
+import { FiGrid, FiUsers, FiBriefcase, FiCpu, FiUserCheck, FiMenu } from "react-icons/fi";
 import waveImg from "../assets/wave.png";
+import jobLogo from "../assets/job_logo.png";
 import { useLanguage } from "../contexts/LanguageContext";
 import { t } from "../utils/i18n";
 import useMediaQuery from "../hooks/useMediaQuery";
@@ -19,29 +21,18 @@ const Layout = ({ children }) => {
   ];
 
   const renderIcon = (key) => {
-    const fill = "#0083FF";
-    const common = { width: 18, height: 18, viewBox: "0 0 24 24", style: { marginRight: 10, flexShrink: 0 } };
+    const iconProps = { size: 18, style: { marginRight: 10, flexShrink: 0 } };
     switch (key) {
       case "dashboard":
-        return (
-          <svg {...common} xmlns="http://www.w3.org/2000/svg"><path fill={fill} d="M3 13h8V3H3v10zm10 8h8V3h-8v18zM3 21h8v-6H3v6z"/></svg>
-        );
+        return <FiGrid color="#0083FF" {...iconProps} />;
       case "candidates":
-        return (
-          <svg {...common} xmlns="http://www.w3.org/2000/svg"><path fill={fill} d="M12 12c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm0 2c-4.33 0-8 2.17-8 5v1h16v-1c0-2.83-3.67-5-8-5z"/></svg>
-        );
+        return <FiUsers color="#0083FF" {...iconProps} />;
       case "jobs":
-        return (
-          <svg {...common} xmlns="http://www.w3.org/2000/svg"><path fill={fill} d="M20 6h-4V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2H4a2 2 0 0 0-2 2v2h20V8a2 2 0 0 0-2-2zM8 4h8v2H8V4zm-6 8v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6H2z"/></svg>
-        );
+        return <FiBriefcase color="#0083FF" {...iconProps} />;
       case "ai-tools":
-        return (
-          <svg {...common} xmlns="http://www.w3.org/2000/svg"><path fill={fill} d="M12 2l2.09 6.26L20 9l-4.91 3.57L16.18 20 12 16.9 7.82 20l1.09-7.43L4 9l5.91-.74L12 2z"/></svg>
-        );
+        return <FiCpu color="#0083FF" {...iconProps} />;
       case "clients":
-        return (
-          <svg {...common} xmlns="http://www.w3.org/2000/svg"><path fill={fill} d="M3 7h18v2H3V7zm0 4h12v2H3v-2zm0 4h18v2H3v-2z"/></svg>
-        );
+        return <FiUserCheck color="#0083FF" {...iconProps} />;
       default:
         return null;
     }
@@ -129,7 +120,7 @@ const Layout = ({ children }) => {
       {/* Top Section with Logo and Navbar */}
       <div style={styles.topSection}>
         {/* Logo */}
-        <div style={{ ...styles.logo, justifyContent: isTablet ? "flex-start" : "center", paddingLeft: isTablet ? 20 : 40 }}>
+        <div style={{ ...styles.logo, justifyContent: isTablet ? "flex-start" : "center", paddingLeft: isTablet ? 16 : 32 }}>
           {isTablet && (
             <button
               type="button"
@@ -137,12 +128,10 @@ const Layout = ({ children }) => {
               style={styles.menuBtn}
               onClick={() => setSidebarOpen((prev) => !prev)}
             >
-              <span style={styles.menuLine} />
-              <span style={styles.menuLine} />
-              <span style={styles.menuLine} />
+              <FiMenu size={22} color="#2e236c" />
             </button>
           )}
-          <div style={styles.logoText}>JOBspeedy AI</div>
+          <img src={jobLogo} alt="JOBspeedy AI" style={styles.logoImage} />
         </div>
         
         {/* Top Navbar */}
@@ -252,20 +241,13 @@ const styles = {
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    padding: "0px 40px",
-    minWidth: "280px",
+    padding: "0px 24px",
+    minWidth: "220px",
     height: "100%",
   },
-  logoText: {
-    fontFamily: "Poppins, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif",
-    fontSize: "32px",
-    fontWeight: "600",
-    background: "linear-gradient(135deg, #00B2FF 0%, #0083FF 100%)",
-    WebkitBackgroundClip: "text",
-    WebkitTextFillColor: "transparent",
-    backgroundClip: "text",
-    letterSpacing: "-0.5px",
-    lineHeight: "1.2",
+  logoImage: {
+    height: 38,
+    objectFit: "contain",
   },
   topNavbar: {
     display: "flex",

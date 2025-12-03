@@ -4,6 +4,7 @@ import Layout from "./Layout";
 import { useLanguage } from "../contexts/LanguageContext";
 import { t } from "../utils/i18n";
 import { apiFetch } from "../utils/api";
+import useMediaQuery from "../hooks/useMediaQuery";
 
 const AdminDashboard = () => {
   const navigate = useNavigate();
@@ -16,6 +17,7 @@ const AdminDashboard = () => {
   });
   const [weeklyData, setWeeklyData] = useState([]);
   const [loading, setLoading] = useState(true);
+  const isMobile = useMediaQuery("(max-width: 900px)");
 
   useEffect(() => {
     fetchDashboardData();
@@ -141,7 +143,10 @@ const AdminDashboard = () => {
         </div>
 
         {/* Graphs Container */}
-        <div style={styles.graphsContainer}>
+        <div style={{
+          ...styles.graphsContainer,
+          gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr",
+        }}>
           {/* Applications Trend Chart */}
           <div style={styles.graphCard}>
             <div style={styles.graphHeader}>
